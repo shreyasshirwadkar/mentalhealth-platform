@@ -37,6 +37,7 @@ async function createTables() {
                 email VARCHAR(255) UNIQUE NOT NULL,
                 expertise TEXT NOT NULL,
                 location TEXT
+                number TEXT NOT NULL
             );
 
             CREATE TABLE IF NOT EXISTS moods (
