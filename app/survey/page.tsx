@@ -29,7 +29,6 @@ const questions = [
 export default async function SurveyPage() {
   const session = await getServerSession();
   if (!session) {
-    alert("Please login first");
     redirect("/auth/login");
   }
 
