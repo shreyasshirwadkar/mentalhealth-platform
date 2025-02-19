@@ -5,7 +5,7 @@ type ButtonProps = {
   path: string;
   title: string;
 };
-export function ButtonComp({ path, title }: ButtonProps) {
+function ButtonComp({ path, title }: ButtonProps) {
   return (
     <Link
       className="bg-black py-2 px-4 text-white font-bold rounded-xl"
