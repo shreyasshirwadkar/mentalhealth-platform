@@ -9,18 +9,24 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ai-sdk/google": "^1.1.14",
     "@auth/core": "^0.34.2",
     "@types/bcrypt": "^5.0.2",
     "@types/pg": "^8.11.11",
+    "ai": "^4.1.41",
     "axios": "^1.7.9",
     "bcrypt": "^5.1.1",
+    "chart.js": "^4.4.7",
+    "chartjs-adapter-date-fns": "^3.0.0",
     "dotenv": "^16.4.7",
     "jsonwebtoken": "^9.0.2",
     "next": "15.1.7",
     "next-auth": "^4.24.11",
     "pg": "^8.13.3",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-chartjs-2": "^5.3.0",
+    "react-dom": "^19.0.0",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

@@ -18,16 +18,13 @@ async function createTables() {
                 created_at TIMESTAMP DEFAULT NOW()
             );
 
-            CREATE TABLE IF NOT EXISTS surveys (
-                id SERIAL PRIMARY KEY,
-                question TEXT NOT NULL
-            );
+           
 
             CREATE TABLE IF NOT EXISTS survey_responses (
                 id SERIAL PRIMARY KEY,
                 user_id INT REFERENCES users(id) ON DELETE CASCADE,
-                survey_id INT REFERENCES surveys(id) ON DELETE CASCADE,
-                response TEXT NOT NULL,
+                responses_score INT NOT NULL,
+                result TEXT NOT NULL,
                 created_at TIMESTAMP DEFAULT NOW()
             );
 
@@ -36,8 +33,8 @@ async function createTables() {
                 name VARCHAR(255) NOT NULL,
                 email VARCHAR(255) UNIQUE NOT NULL,
                 expertise TEXT NOT NULL,
-                location TEXT
-                number TEXT NOT NULL
+                location TEXT,
+                ph_number TEXT NOT NULL
             );
 
             CREATE TABLE IF NOT EXISTS moods (

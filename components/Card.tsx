@@ -7,7 +7,7 @@ interface props {
 export default function card({ name, expertise, location, number }: props) {
   return (
     <div className="flex flex-col justify-center items-center m-4">
-      <div className="bg-black w-[22vw] text-white flex py-4 px-3 rounded-xl shadow-xl gap-4">
+      <div className="bg-black  w-[50vw] md:w-[22vw] text-white flex py-4 px-3 rounded-xl shadow-xl gap-4">
         <div className="bg-white p-2 rounded-full flex items-center justify-center w-12 h-12">
           <svg
             width="40"

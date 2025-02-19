@@ -10,10 +10,7 @@ export default function SurveyLayout({ children }: { children: ReactNode }) {
           <h1 className="text-3xl font-bold">Survey</h1>
         </div>
 
-        {/* Content of Mood tracking */}
         <main className="flex-grow p-4">{children}</main>
-
-        {/* Footer or Navigation */}
       </div>
     </SessionProvider>
   );
