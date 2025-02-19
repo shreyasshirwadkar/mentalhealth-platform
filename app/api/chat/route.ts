@@ -33,15 +33,10 @@ export async function POST(req: Request) {
 
     console.log("Returning AI stream response...");
 
-    return new Response(
-      result.toDataStreamResponse({
-        getErrorMessage: errorHandler,
-      }).body,
-      {
-        status: 200,
-        headers: { "Content-Type": "text/plain" },
-      }
-    );
+    return new Response(result.toDataStreamResponse().body, {
+      status: 200,
+      headers: { "Content-Type": "text/plain" },
+    });
   } catch (error) {
     console.error("Error in API:", error);
     return new Response("Internal Server Error", { status: 500 });
