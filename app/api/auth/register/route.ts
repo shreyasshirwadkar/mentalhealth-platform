@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     return new Response(JSON.stringify({ user: res.rows[0] }), {
       status: 200,
     });
-  } catch (error) {
-    return Response.json({ error: "User already exists" }, { status: 400 });
+  } catch (err) {
+    return Response.json({ err }, { status: 400 });
   }
 }

@@ -3,13 +3,18 @@ import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import MoodButtons from "@/components/MoodButtons";
-import MoodChart from "@/components/MoodChart"; // Import the MoodChart component
+import MoodChart from "@/components/MoodChart";
+
+interface MoodEntry {
+  timestamp: string;
+  mood: string;
+}
 
 export default function Mood() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [mood, setMood] = useState("Happiest");
-  const [moodHistory, setMoodHistory] = useState<any[]>([]); // Store mood history
+  const [mood, setMood] = useState<string>("Happiest");
+  const [moodHistory, setMoodHistory] = useState<MoodEntry[]>([]);
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -18,15 +23,14 @@ export default function Mood() {
     }
   }, [status, router]);
 
-  // Fetch mood history from the API
   const fetchMoodHistory = async () => {
     if (session) {
       try {
         const response = await fetch("/api/mood/");
-        const data = await response.json();
+        const data: { created_at: string; mood: string }[] =
+          await response.json();
 
-        // Map API response to correct format
-        const formattedData = data.map((entry: any) => ({
+        const formattedData: MoodEntry[] = data.map((entry) => ({
           timestamp: entry.created_at,
           mood: entry.mood,
         }));
@@ -42,19 +46,19 @@ export default function Mood() {
     fetchMoodHistory();
   }, [session]);
 
-  // Handle mood submission
   const handleSubmit = async () => {
     if (session) {
       try {
         const response = await fetch("/api/mood", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ user_id: session.user.id, mood }),
+          body: JSON.stringify({ user_id: session.user?.id, mood }),
         });
-        const result = await response.json();
+        const result: { message?: string; error?: string } =
+          await response.json();
         if (response.ok) {
           alert(result.message || "Mood Recorded");
-          fetchMoodHistory(); // Refetch the mood history after submission
+          fetchMoodHistory();
         } else {
           alert(result.error || "Error recording mood");
         }
@@ -68,8 +72,8 @@ export default function Mood() {
   if (status === "loading") return <p>Loading...</p>;
 
   return (
-    <div className=" flex flex-col items-center ">
-      <div className="flex flex-col md:flex-row justify-end md:gap-20 ">
+    <div className="flex flex-col items-center">
+      <div className="flex flex-col md:flex-row justify-end md:gap-20">
         <div className="flex flex-col justify-center items-center">
           <h1 className="text-4xl font-bold text-center">
             How are you
@@ -87,7 +91,7 @@ export default function Mood() {
         </div>
         <div className="text-4xl font-bold mt-10">
           History:
-          <MoodChart moodHistory={moodHistory} />{" "}
+          <MoodChart moodHistory={moodHistory} />
         </div>
       </div>
     </div>

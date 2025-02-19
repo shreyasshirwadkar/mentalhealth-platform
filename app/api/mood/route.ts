@@ -12,17 +12,17 @@ export async function POST(req: NextRequest) {
 
   const { user_id, mood } = await req.json();
   try {
-    const res = await client.query(
-      "INSERT INTO moods (user_id, mood) VALUES ($1, $2)",
-      [user_id, mood]
-    );
+    await client.query("INSERT INTO moods (user_id, mood) VALUES ($1, $2)", [
+      user_id,
+      mood,
+    ]);
     return Response.json({ message: "Mood recorded successfully" });
-  } catch (error) {
-    return Response.json({ error: "Error saving mood" }, { status: 500 });
+  } catch (err) {
+    return Response.json({ error: "Error saving mood", err }, { status: 500 });
   }
 }
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   const session = await getServerSession(authOptions);
 
   if (!session) {

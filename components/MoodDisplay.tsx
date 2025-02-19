@@ -7,7 +7,7 @@ interface MoodDisplayProps {
 }
 
 const MoodDisplay: React.FC<MoodDisplayProps> = ({ initialMoodHistory }) => {
-  const [moodHistory, setMoodHistory] = useState(initialMoodHistory);
+  const [moodHistory] = useState(initialMoodHistory);
 
   return (
     <div className="text-4xl font-bold mt-10">
