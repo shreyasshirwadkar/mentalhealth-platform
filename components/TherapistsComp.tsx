@@ -19,9 +19,7 @@ export default function TherapistsComp() {
   useEffect(() => {
     async function fetchTherapists() {
       try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/api/therapists`
-        );
+        const res = await fetch(`/api/therapists`);
         if (!res.ok) {
           throw new Error("Failed to fetch therapists");
         }
