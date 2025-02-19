@@ -1,5 +1,6 @@
 import { google } from "@ai-sdk/google";
 import { streamText } from "ai";
+import { NextResponse } from "next/server";
 
 export const maxDuration = 30;
 
@@ -32,8 +33,10 @@ export async function POST(req: Request) {
     });
 
     console.log("Returning AI stream response...");
-
-    return new Response(result.toDataStreamResponse().body, {
+    const response = await result.toDataStreamResponse({
+      getErrorMessage: errorHandler,
+    });
+    return new NextResponse(response.body, {
       status: 200,
       headers: { "Content-Type": "text/plain" },
     });
