@@ -1,7 +1,7 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import client from "@/config/db";
-import { NextAuthOptions } from "next-auth";
+import { NextAuthOptions, User } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import { Session } from "next-auth";
 
@@ -9,7 +9,7 @@ interface DBUser {
   id: string;
   email: string;
   name: string;
-  password: string;
+  password: string; // Not needed in JWT or session
 }
 
 export const authOptions: NextAuthOptions = {
@@ -43,13 +43,14 @@ export const authOptions: NextAuthOptions = {
           throw new Error("Invalid email or password");
         }
 
-        return { id: user.id, email: user.email, name: user.name };
+        // ✅ Remove password before returning user
+        return { id: user.id, email: user.email, name: user.name } as User;
       },
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    async jwt({ token, user }: { token: JWT; user?: any }) {
+    async jwt({ token, user }: { token: JWT; user?: User }) {
       if (user) {
         token.id = user.id;
         token.email = user.email;
