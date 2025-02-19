@@ -27,7 +27,7 @@ const MoodButtons: FC<MoodButtonsProps> = ({ setMood }) => {
       {moods.map((mood) => (
         <div
           key={mood.value}
-          className={`shadow-md rounded-xl w-[10vw] h-[18vh] flex flex-col justify-center items-center cursor-pointer ${
+          className={`shadow-md rounded-xl w-[25vw] h-[16vh] md:w-[10vw] md:h-[18vh] flex flex-col justify-center items-center cursor-pointer ${
             selectedMood === mood.value ? "bg-[#f2dcf4]" : ""
           }`}
           onClick={() => handleMoodClick(mood.value)}

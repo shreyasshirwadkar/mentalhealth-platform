@@ -34,7 +34,7 @@ export default async function SurveyPage() {
   }
 
   return (
-    <div className="p-6 flex flex-col items-center justify-center">
+    <div className="p-6 flex flex-col items-center justify-center bg-blue-50">
       <h1 className="text-2xl font-bold mb-6">DSM-5 (PHQ-9) Questionnaire</h1>
 
       <SurveyForm questions={questions} userId={session.user.id} />

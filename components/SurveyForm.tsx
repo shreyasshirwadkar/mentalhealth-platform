@@ -77,7 +77,7 @@ export default function SurveyForm({ questions, userId }: SurveyFormProps) {
     <div>
       <form>
         {questions.map((question, index) => (
-          <div key={index} className="mb-4 shadow-xl p-4 rounded-xl w-[45vw]">
+          <div key={index} className="mb-4 shadow-xl p-4 rounded-xl w-[80vw] md:w-[45vw]">
             <p className="font-semibold text-xl">{question.question}</p>
             <div className="mt-2 text-lg">
               {options.map((option, optionIndex) => (
@@ -105,10 +105,10 @@ export default function SurveyForm({ questions, userId }: SurveyFormProps) {
         Submit Survey
       </button>
 
-      {error && <div className="mt-4 text-red-500">{error}</div>}
+      {error && <div className="mt-4 text-red-500 text-wrap">{error}</div>}
 
       {mentalHealthStatus && (
-        <div className="mt-6 p-4 border rounded-md h-full shadow-md w-[26vw] border-4 border-gray-5 00">
+        <div className="mt-6 p-4 border rounded-md h-full shadow-md w-[80vw] md:w-[26vw] border-4 border-gray-5 00">
           <h2 className="text-xl font-semibold">Your Mental Health Status:</h2>
           <p className="text-lg">{mentalHealthStatus}</p>
           <p className="text-gray-600">Overall Score: {score}</p>

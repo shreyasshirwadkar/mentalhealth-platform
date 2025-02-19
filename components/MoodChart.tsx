@@ -16,7 +16,16 @@ import {
 } from "chart.js";
 import "chartjs-adapter-date-fns";
 
-ChartJS.register(CategoryScale, LinearScale, TimeScale, LineElement, PointElement, Title, Tooltip, Legend);
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  TimeScale,
+  LineElement,
+  PointElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 interface MoodEntry {
   timestamp: string;
@@ -37,7 +46,14 @@ const MoodChart: FC<MoodChartProps> = ({ moodHistory }) => {
     Angry: 0,
   };
 
-  const moodLabels = ["Angry", "Very Sad", "Sad", "Happy", "Very Happy", "Happiest"];
+  const moodLabels = [
+    "Angry",
+    "Very Sad",
+    "Sad",
+    "Happy",
+    "Very Happy",
+    "Happiest",
+  ];
 
   const chartData: ChartData<"line"> = {
     datasets: [
@@ -71,7 +87,10 @@ const MoodChart: FC<MoodChartProps> = ({ moodHistory }) => {
         title: { display: true, text: "Time of Day" },
       },
       y: {
-        ticks: { callback: (value) => moodLabels[value as number] || "", stepSize: 1 },
+        ticks: {
+          callback: (value) => moodLabels[value as number] || "",
+          stepSize: 1,
+        },
         title: { display: true, text: "Mood Level" },
       },
     },
@@ -82,7 +101,7 @@ const MoodChart: FC<MoodChartProps> = ({ moodHistory }) => {
   };
 
   return (
-    <div className="w-[50vw] p-4">
+    <div className="md:w-[50vw] w-[90vw] h-full md:h-[50vh]   p-4">
       <Line data={chartData} options={chartOptions} />
     </div>
   );
