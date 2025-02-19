@@ -79,7 +79,7 @@ export default function Login() {
         </form>
         {error && <div className="text-red-500">{error}</div>}
         <div className="flex p-4 gap-2">
-          <div>Don't have an account?</div>
+          <div>Don&apos;t have an account?</div>
           <Link href="/auth/register" className="text-gray-500 underline">
             Register here
           </Link>

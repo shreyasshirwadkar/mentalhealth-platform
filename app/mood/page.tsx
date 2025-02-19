@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import MoodButtons from "@/components/MoodButtons";
@@ -23,7 +23,7 @@ export default function Mood() {
     }
   }, [status, router]);
 
-  const fetchMoodHistory = async () => {
+  const fetchMoodHistory = useCallback(async () => {
     if (session) {
       try {
         const response = await fetch("/api/mood/");
@@ -40,11 +40,11 @@ export default function Mood() {
         console.error("Error fetching mood history:", error);
       }
     }
-  };
+  }, [session]);
 
   useEffect(() => {
     fetchMoodHistory();
-  }, [session]);
+  }, [fetchMoodHistory]);
 
   const handleSubmit = async () => {
     if (session) {
@@ -58,7 +58,7 @@ export default function Mood() {
           await response.json();
         if (response.ok) {
           alert(result.message || "Mood Recorded");
-          fetchMoodHistory();
+          fetchMoodHistory(); // Ensure latest history is fetched
         } else {
           alert(result.error || "Error recording mood");
         }
