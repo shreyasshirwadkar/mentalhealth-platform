@@ -1,4 +1,3 @@
-// TherapistsComp.tsx
 "use client";
 import { useState, useEffect } from "react";
 import Card from "@/components/Card";
@@ -26,6 +25,7 @@ export default function TherapistsComp() {
         const data = await res.json();
         setTherapists(data);
       } catch (error) {
+        console.log("Error fetching therapists:", error);
         setError("⚠️ Could not load therapists. Please restart the server.");
       } finally {
         setLoading(false);
