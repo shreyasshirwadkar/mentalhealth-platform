@@ -29,7 +29,7 @@ A modern mental health support web platform built with **Next.js** and **TypeScr
 
 ## 📂 Project Structure
 
-
+```
 mentalhealth-platform/
 ├── app/                 # Application routes & pages
 ├── components/          # Reusable UI components
@@ -42,7 +42,7 @@ mentalhealth-platform/
 ├── tailwind.config.ts   # Tailwind CSS configuration
 ├── tsconfig.json        # TypeScript configuration
 └── package.json         # Dependencies & scripts
-
+```
 
 ---
 
