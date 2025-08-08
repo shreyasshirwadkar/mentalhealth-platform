@@ -1,50 +1,32 @@
-interface props {
+// Card.tsx
+interface Props {
   name: string;
   expertise: string;
   location: string;
   number: string;
 }
-export default function card({ name, expertise, location, number }: props) {
+
+export default function Card({ name, expertise, location, number }: Props) {
   return (
-    <div className="flex flex-col justify-center items-center m-4">
-      <div className="bg-black  w-[50vw] md:w-[22vw] text-white flex py-4 px-3 rounded-xl shadow-xl gap-4">
-        <div className="bg-white p-2 rounded-full flex items-center justify-center w-12 h-12">
-          <svg
-            width="40"
-            height="40"
-            viewBox="0 0 24 24"
-            fill="white"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle
-              cx="12"
-              cy="8"
-              r="4"
-              stroke="black"
-              strokeWidth="1.5"
-              fill="white"
-            />
-            <path
-              d="M4 20c0-4 4-6 8-6s8 2 8 6"
-              stroke="black"
-              strokeWidth="1.5"
-              fill="none"
-            />
-          </svg>
-        </div>
-        <div className="w-[0.1vw] bg-white"></div>
-        <div className="h-full flex flex-col ">
-          <div className="text-xl">{name}</div>
-          <div className="text-md">{expertise}</div>
-          <div className="text-sm">{location}</div>
-          <div className="mt-2 ">{number}</div>
-        </div>
+    <div className="bg-white w-[80vw] md:w-[260px] p-5 rounded-3xl shadow-lg border border-blue-100 hover:shadow-xl hover:scale-105 transition-transform duration-200 ease-out flex flex-col items-center">
+      
+      {/* Avatar */}
+      <div className="bg-blue-200 w-16 h-16 rounded-full flex items-center justify-center mb-4 shadow-inner">
+        <span className="text-2xl">🧑‍⚕️</span>
       </div>
+
+      {/* Name */}
+      <h2 className="text-lg font-bold text-black text-center">{name}</h2>
+      
+      {/* Details */}
+      <p className="text-sm text-gray-600">{expertise}</p>
+      <p className="text-xs text-gray-500">{location}</p>
+      <p className="mt-2 text-black font-semibold">{number}</p>
+
+      {/* Action Button */}
+      <button className="mt-4 px-4 py-2 text-white bg-gradient-to-br from-blue-400 to-blue-500 rounded-full font-semibold shadow hover:opacity-90 transition">
+        Contact
+      </button>
     </div>
   );
-}
-{
-  /* <li key={therapist.id}>
-{therapist.name} - {therapist.expertise} - {therapist.location}
-</li> */
 }

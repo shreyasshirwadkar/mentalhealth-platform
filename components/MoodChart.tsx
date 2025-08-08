@@ -46,14 +46,7 @@ const MoodChart: FC<MoodChartProps> = ({ moodHistory }) => {
     Angry: 0,
   };
 
-  const moodLabels = [
-    "Angry",
-    "Very Sad",
-    "Sad",
-    "Happy",
-    "Very Happy",
-    "Happiest",
-  ];
+  const moodLabels = ["Angry", "Very Sad", "Sad", "Happy", "Very Happy", "Happiest"];
 
   const chartData: ChartData<"line"> = {
     datasets: [
@@ -63,12 +56,12 @@ const MoodChart: FC<MoodChartProps> = ({ moodHistory }) => {
           x: new Date(entry.timestamp).getTime(),
           y: moodValues[entry.mood] ?? 0,
         })),
-        borderColor: "rgba(75, 192, 192, 1)",
-        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        borderColor: "#3b82f6",
+        backgroundColor: "rgba(59, 130, 246, 0.2)",
         borderWidth: 2,
         pointRadius: 6,
         pointHoverRadius: 8,
-        pointBackgroundColor: "rgba(75, 192, 192, 1)",
+        pointBackgroundColor: "#3b82f6",
         pointBorderColor: "#fff",
       },
     ],
@@ -92,6 +85,8 @@ const MoodChart: FC<MoodChartProps> = ({ moodHistory }) => {
           stepSize: 1,
         },
         title: { display: true, text: "Mood Level" },
+        min: 0,
+        max: 5,
       },
     },
     plugins: {
@@ -101,7 +96,7 @@ const MoodChart: FC<MoodChartProps> = ({ moodHistory }) => {
   };
 
   return (
-    <div className="md:w-[50vw] w-[90vw] h-full md:h-[50vh]   p-4">
+    <div className="w-full p-4 bg-white rounded-xl shadow-md">
       <Line data={chartData} options={chartOptions} />
     </div>
   );

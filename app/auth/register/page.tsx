@@ -54,50 +54,80 @@ export default function Register() {
   };
 
   return (
-    <div className="h-screen flex flex-col justify-center items-center">
-      <div className="shadow-md border-2 flex flex-col justify-center items-center p-4">
-        <h1 className="text-4xl font-bold">Register</h1>
-        <form onSubmit={handleRegister} className="flex flex-col mt-4">
-          <input
-            placeholder="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="border-2 p-2 m-2 text-xl"
-          />
-          {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200">
+      {/* Register Card */}
+      <div className="w-full max-w-md bg-white/80 backdrop-blur-lg rounded-3xl shadow-lg p-8 border border-white/30">
+        {/* Title */}
+        <h1 className="text-3xl font-extrabold text-center text-blue-800 mb-2">
+          Create Account ✨
+        </h1>
+        <p className="text-center text-gray-500 mb-6">
+          Join us and start your journey
+        </p>
 
-          <input
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="border-2 p-2 m-2 text-xl"
-          />
-          {errors.email && (
-            <p className="text-red-500 text-sm">{errors.email}</p>
-          )}
-          <input
-            placeholder="Password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="border-2 p-2 m-2 text-xl"
-          />
-          {errors.password && (
-            <p className="text-red-500 text-sm">{errors.password}</p>
-          )}
+        {/* Form */}
+        <form onSubmit={handleRegister} className="space-y-5">
+          {/* Name */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Name
+            </label>
+            <input
+              placeholder="Your full name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300 text-gray-800"
+            />
+            {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+          </div>
+
+          {/* Email */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Email
+            </label>
+            <input
+              placeholder="you@example.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300 text-gray-800"
+            />
+            {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+          </div>
+
+          {/* Password */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Password
+            </label>
+            <input
+              type="password"
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-300 text-gray-800"
+            />
+            {errors.password && (
+              <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+            )}
+          </div>
+
+          {/* Submit Button */}
           <button
-            className="bg-black text-white text-lg font-bold py-2 px-4 rounded-md mt-4"
             type="submit"
+            className="w-full py-3 bg-gradient-to-br from-blue-400 to-blue-500 text-white font-semibold rounded-xl shadow-md hover:scale-105 transition-transform duration-200"
           >
             Register
           </button>
         </form>
-        <div className="flex gap-2 p-2">
-          <div>Already have an account?</div>
-          <Link className="underline text-gray-500" href="/auth/login">
+
+        {/* Link to Login */}
+        <p className="text-center text-sm text-gray-500 mt-6">
+          Already have an account?{" "}
+          <Link href="/auth/login" className="text-blue-600 font-semibold hover:underline">
             Login
           </Link>
-        </div>
+        </p>
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
+// components/SurveyForm.tsx
 "use client";
-
 import { useState } from "react";
 
 type SurveyFormProps = {
@@ -28,10 +28,7 @@ export default function SurveyForm({ questions, userId }: SurveyFormProps) {
   };
 
   const calculateScore = () => {
-    const totalScore = Object.values(responses).reduce(
-      (acc, val) => acc + val,
-      0
-    );
+    const totalScore = Object.values(responses).reduce((acc, val) => acc + val, 0);
     setScore(totalScore);
 
     let result = "";
@@ -45,12 +42,8 @@ export default function SurveyForm({ questions, userId }: SurveyFormProps) {
   };
 
   const handleSubmit = async () => {
-    {
-      console.log(`userId : ${userId}`);
-    }
-
     if (Object.keys(responses).length !== questions.length) {
-      setError("Please answer all the questions before submitting.");
+      setError("⚠️ Please answer all the questions before submitting.");
       return;
     }
     setError("");
@@ -67,54 +60,58 @@ export default function SurveyForm({ questions, userId }: SurveyFormProps) {
       }),
     });
 
-    await window.scrollTo({
-      top: document.body.scrollHeight,
-      behavior: "smooth",
-    });
+    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
   };
 
   return (
-    <div>
-      <form>
-        {questions.map((question, index) => (
-          <div
-            key={index}
-            className="mb-4 shadow-xl p-4 rounded-xl w-[80vw] md:w-[45vw]"
-          >
-            <p className="font-semibold text-xl">{question.question}</p>
-            <div className="mt-2 text-lg">
-              {options.map((option, optionIndex) => (
-                <label key={optionIndex} className="block">
-                  <input
-                    type="radio"
-                    name={`question-${index}`}
-                    value={optionIndex}
-                    onChange={() => handleResponseChange(index, optionIndex)}
-                    className="mr-2"
-                  />
+    <div className="w-full max-w-3xl space-y-6">
+      {questions.map((question, index) => (
+        <div
+          key={index}
+          className="bg-white shadow-md rounded-2xl p-6 border border-gray-100"
+        >
+          <p className="font-semibold text-lg mb-4 text-blue-900">
+            {index + 1}. {question.question}
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {options.map((option, optionIndex) => {
+              const selected = responses[index] === option.score;
+              return (
+                <button
+                  type="button"
+                  key={optionIndex}
+                  onClick={() => handleResponseChange(index, optionIndex)}
+                  className={`p-3 rounded-xl text-left border transition-all duration-200 ${
+                    selected
+                      ? "bg-blue-500 text-white border-blue-500 shadow-md"
+                      : "bg-gray-50 text-gray-700 hover:bg-blue-50 border-gray-300"
+                  }`}
+                >
                   {option.text}
-                </label>
-              ))}
-            </div>
+                </button>
+              );
+            })}
           </div>
-        ))}
-      </form>
+        </div>
+      ))}
 
       <button
         type="button"
         onClick={handleSubmit}
-        className="bg-blue-600 text-white py-2 px-6 rounded-lg mt-4"
+        className="w-full md:w-auto bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-8 rounded-xl font-semibold shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200"
       >
         Submit Survey
       </button>
 
-      {error && <div className="mt-4 text-red-500 text-wrap">{error}</div>}
+      {error && <div className="text-red-500 text-center">{error}</div>}
 
       {mentalHealthStatus && (
-        <div className="mt-6 p-4  rounded-md h-full shadow-md w-[80vw] md:w-[26vw] border-4 border-gray-5 00">
-          <h2 className="text-xl font-semibold">Your Mental Health Status:</h2>
-          <p className="text-lg">{mentalHealthStatus}</p>
-          <p className="text-gray-600">Overall Score: {score}</p>
+        <div className="mt-6 p-6 bg-white rounded-2xl shadow-lg border border-gray-100 text-center">
+          <h2 className="text-2xl font-bold text-blue-900 mb-2">
+            Your Mental Health Status
+          </h2>
+          <p className="text-lg text-gray-700 mb-1">{mentalHealthStatus}</p>
+          <p className="text-gray-500">Overall Score: {score}</p>
         </div>
       )}
     </div>

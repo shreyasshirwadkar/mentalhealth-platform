@@ -1,13 +1,17 @@
 "use client";
 
 import { useChat } from "@ai-sdk/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Chat() {
-  const { messages, input, handleInputChange, handleSubmit, setMessages } =
-    useChat({
-      api: "/api/chat",
-    });
+  const {
+    messages,
+    input,
+    handleInputChange,
+    handleSubmit,
+    setMessages,
+    isLoading,
+  } = useChat({ api: "/api/chat" });
 
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
@@ -24,81 +28,83 @@ export default function Chat() {
         {
           id: "welcome-msg",
           role: "assistant",
-          content: "Hello! How can I help you today?",
+          content: "🌸 Hi there! How can I help you today?",
         },
       ]);
     }
   }, [messages.length, setMessages]);
 
   return (
-    <div className=" flex flex-col items-center  bg-blue-200 md:h-[88vh] h-[92vh]">
-      <div
-        ref={chatContainerRef}
-        className="mt-5 w-[80vw] md:w-[38vw] p-4 space-y-4 overflow-y-auto  h-[71vh] md:h-[70vh] bg-white rounded-lg shadow-lg"
-      >
-        {messages.map((m) => (
-          <div
-            key={m.id}
-            className={`flex items-center ${
-              m.role === "user" ? "justify-end" : "justify-start"
-            }`}
-          >
-            {m.role !== "user" && (
-              <div className="w-10 h-10 mr-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="w-10 h-10 text-gray-500"
-                >
-                  <path d="M12 2a7 7 0 0 1 7 7v1a5 5 0 0 1 2 4v1H3v-1a5 5 0 0 1 2-4V9a7 7 0 0 1 7-7zM7 9v1h10V9a5 5 0 0 0-10 0zm10 3H7a3 3 0 0 0-3 3v1h16v-1a3 3 0 0 0-3-3z" />
-                </svg>
-              </div>
-            )}
+    <div className="h-screen w-screen overflow-hidden flex items-center justify-center bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 p-4">
+      <div className="flex flex-col w-full max-w-3xl h-full md:h-[80vh] bg-white/70 backdrop-blur-lg rounded-3xl shadow-xl overflow-hidden border border-white/30">
+        
+        {/* Chat Messages */}
+        <div
+          ref={chatContainerRef}
+          className="flex-1 p-5 space-y-4 overflow-y-auto"
+        >
+          {messages.map((m) => (
             <div
-              className={`p-3 rounded-lg shadow-md max-w-xs ${
-                m.role === "user"
-                  ? "bg-blue-500 text-white rounded-br-none"
-                  : "bg-gray-200 text-black rounded-bl-none"
+              key={m.id}
+              className={`flex items-end ${
+                m.role === "user" ? "justify-end" : "justify-start"
               }`}
             >
-              {m.content}
-            </div>
-            {m.role === "user" && (
-              <div className="w-10 h-10 ml-2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="w-10 h-10 text-blue-600"
-                >
-                  <path d="M12 2a7 7 0 0 1 7 7v1a5 5 0 0 1 2 4v1H3v-1a5 5 0 0 1 2-4V9a7 7 0 0 1 7-7zM7 9v1h10V9a5 5 0 0 0-10 0zm10 3H7a3 3 0 0 0-3 3v1h16v-1a3 3 0 0 0-3-3z" />
-                </svg>
+              {m.role !== "user" && (
+                <div className="w-9 h-9 mr-2 bg-gradient-to-br from-blue-200 to-purple-200 flex items-center justify-center rounded-full shadow">
+                  💬
+                </div>
+              )}
+              <div
+                className={`px-4 py-2 rounded-2xl shadow-md max-w-[75%] text-sm md:text-base ${
+                  m.role === "user"
+                    ? "bg-gradient-to-br from-blue-400 to-blue-500 text-white rounded-br-none"
+                    : "bg-gradient-to-br from-purple-100 to-pink-100 text-gray-800 rounded-bl-none"
+                }`}
+              >
+                {m.content}
               </div>
-            )}
-          </div>
-        ))}
-      </div>
+              {m.role === "user" && (
+                <div className="w-9 h-9 ml-2 bg-gradient-to-br from-pink-200 to-purple-200 flex items-center justify-center rounded-full shadow">
+                  🧑
+                </div>
+              )}
+            </div>
+          ))}
 
-      <form
-        onSubmit={handleSubmit}
-        className="w-[80vw] md:w-[38vw] p-4 bg-white border-t border-gray-300 fixed bottom-4 rounded-lg shadow-lg"
-      >
-        <div className="flex items-center gap-2">
-          <textarea
-            className="flex-1 p-2 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 md:h-[6vh]"
-            value={input}
-            placeholder="Say something..."
-            onChange={handleInputChange}
-          />
-          <button
-            type="submit"
-            className="p-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600"
-          >
-            Send
-          </button>
+          {/* Three-dot loading animation */}
+          {isLoading && (
+            <div className="flex items-center justify-start space-x-1 ml-11">
+              <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></span>
+              <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-150"></span>
+              <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce delay-300"></span>
+            </div>
+          )}
         </div>
-      </form>
+
+        {/* Input Bar */}
+        <form
+          onSubmit={handleSubmit}
+          className="p-4 bg-white/80 backdrop-blur-lg border-t border-white/30"
+        >
+          <div className="flex items-center gap-2">
+            <textarea
+              className="flex-1 p-3 rounded-full border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300 resize-none text-sm md:text-base"
+              rows={1}
+              value={input}
+              placeholder="Type your message..."
+              onChange={handleInputChange}
+            />
+            <button
+              type="submit"
+              className="px-5 py-2 bg-gradient-to-br from-blue-400 to-blue-500 text-white rounded-full shadow-md hover:scale-105 transition-transform duration-200"
+              disabled={isLoading}
+            >
+              Send
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

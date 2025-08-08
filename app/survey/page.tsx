@@ -1,3 +1,4 @@
+// app/survey/page.tsx
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import SurveyForm from "@/components/SurveyForm";
@@ -33,8 +34,10 @@ export default async function SurveyPage() {
   }
 
   return (
-    <div className="p-6 flex flex-col items-center justify-center bg-blue-50">
-      <h1 className="text-2xl font-bold mb-6">DSM-5 (PHQ-9) Questionnaire</h1>
+    <div className="overflow-y-auto min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200 py-10 px-4 ">
+      <h1 className="text-3xl md:text-4xl font-extrabold text-black mb-8 text-center">
+        DSM-5 (PHQ-9) Questionnaire
+      </h1>
 
       <SurveyForm questions={questions} userId={session.user.id} />
     </div>
