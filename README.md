@@ -1,5 +1,3 @@
-Absolutely! Here’s your README, formatted for a proper `.md` file. I've also checked for markdown issues, consistency, and made sure code blocks are rendered correctly.
-
 # 🧠 Mental Health Platform
 
 A modern mental health support web platform built with **Next.js** and **TypeScript**, designed to provide an intuitive, accessible, and scalable experience for users seeking therapy-related resources.
